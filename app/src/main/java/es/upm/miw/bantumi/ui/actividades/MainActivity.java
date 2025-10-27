@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -140,6 +141,19 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             // @TODO!!! resto opciones
+
+            case R.id.opcReiniciarPartida:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.txtReiniciarPartida)
+                        .setMessage(R.string.resetGameMsg)
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                            juegoBantumi.inicializar(JuegoBantumi.Turno.turnoJ1);
+                            Toast.makeText(this, R.string.resetGameConfirm, Toast.LENGTH_SHORT).show();
+                            Log.i(LOG_TAG, "* Partida Reiniciada");
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+                return true;
 
             default:
                 Snackbar.make(
