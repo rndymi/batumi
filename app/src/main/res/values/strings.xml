@@ -47,4 +47,9 @@
     <string name="txtDialogoFinalTitulo">Fin del juego</string>
     <string name="txtDialogoFinalPregunta">¿Desea jugar otra partida?</string>
 
+    <!-- Reiniciar Partida -->
+    <string name="resetGameMsg"> ¿Desea reiniciar la partida? 🤔 </string>
+    <string name="resetGameConfirm"> Partida Reiniciada con exito! 👏 </string>
+
+
 </resources>
