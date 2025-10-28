@@ -1,6 +1,7 @@
 package es.upm.miw.bantumi.ui.actividades;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceFragmentCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -161,6 +163,12 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
+            case R.id.opcAjustes:
+                Log.i(LOG_TAG, "opción AJUSTES");
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+                break;
+
             default:
                 Snackbar.make(
                         findViewById(android.R.id.content),
@@ -245,4 +253,10 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         partidaEnCurso = savedInstanceState.getBoolean("partidaEnCurso", false);
     }
+
+    /** Metodos de Guardar
+    * */
+
+
+
 }

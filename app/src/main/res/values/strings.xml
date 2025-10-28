@@ -51,5 +51,17 @@
     <string name="resetGameMsg"> ¿Desea reiniciar la partida? 🤔 </string>
     <string name="resetGameConfirm"> Partida Reiniciada con exito! 👏 </string>
 
+    <!-- Guardar Partida -->
+    <string name="key_Guardado"> opc_Fichero </string>
+    <string name="title_Guardado"> OPCIONES DE ALMACENAMIENTO </string>
+
+    <string name="key_NombreFichero">pref_NombreFichero</string>
+    <string name="title_NombreFichero">Nombre del Fichero</string>
+
+    <string name="default_NombreFichero">bantumi_game.txt</string>
+
+    <string name="saveGameMsg"> ¿Desea guardar la partida? 🤔 </string>
+    <string name="saveGameConfirm"> Partida Guardada con exito! 👏 </string>
+
 
 </resources>
