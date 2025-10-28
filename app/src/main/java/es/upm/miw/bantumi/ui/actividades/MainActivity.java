@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     private BantumiViewModel bantumiVM;
     int numInicialSemillas;
 
+    /** Variable de Reiniciar
+    */
+    private boolean partidaEnCurso = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage(R.string.resetGameMsg)
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                             juegoBantumi.inicializar(JuegoBantumi.Turno.turnoJ1);
+                            partidaEnCurso = false;
+                            invalidateOptionsMenu();
                             Toast.makeText(this, R.string.resetGameConfirm, Toast.LENGTH_SHORT).show();
                             Log.i(LOG_TAG, "* Partida Reiniciada");
                         })
@@ -174,6 +180,17 @@ public class MainActivity extends AppCompatActivity {
         String resourceName = getResources().getResourceEntryName(v.getId()); // pXY
         int num = Integer.parseInt(resourceName.substring(resourceName.length() - 2));
         Log.i(LOG_TAG, "huecoPulsado(" + resourceName + ") num=" + num);
+
+        /** Detecta el movimiento del jugador para habilitar el item reiniciar
+         * */
+        if (!partidaEnCurso && juegoBantumi.turnoActual() == JuegoBantumi.Turno.turnoJ1 && num >= 0 && num <= 5) {
+            if (juegoBantumi.getSemillas(num) > 0) {
+                partidaEnCurso = true;
+                invalidateOptionsMenu();
+                Log.i(LOG_TAG, "* La partida ha comenzado");
+            }
+        }
+
         switch (juegoBantumi.turnoActual()) {
             case turnoJ1:
                 Log.i(LOG_TAG, "* Juega Jugador");
@@ -206,5 +223,26 @@ public class MainActivity extends AppCompatActivity {
 
         // terminar
         new FinalAlertDialog(texto).show(getSupportFragmentManager(), "ALERT_DIALOG");
+    }
+
+    /** Metodos de Reiniciar
+     * */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem itemReiniciar = menu.findItem(R.id.opcReiniciarPartida);
+        itemReiniciar.setEnabled(partidaEnCurso);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("partidaEnCurso", partidaEnCurso);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        partidaEnCurso = savedInstanceState.getBoolean("partidaEnCurso", false);
     }
 }
