@@ -58,7 +58,7 @@
     <string name="key_NombreFichero">pref_NombreFichero</string>
     <string name="title_NombreFichero">Nombre del Fichero</string>
 
-    <string name="default_NombreFichero">fichero_MiW.txt</string>
+    <string name="default_NombreFichero">bantumi_game.txt</string>
 
     <string name="saveGameMsg"> ¿Desea guardar la partida? 🤔 </string>
     <string name="saveGameConfirm"> Partida Guardada con exito! 👏 </string>

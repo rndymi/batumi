@@ -253,4 +253,10 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         partidaEnCurso = savedInstanceState.getBoolean("partidaEnCurso", false);
     }
+
+    /** Metodos de Guardar
+    * */
+
+
+
 }
