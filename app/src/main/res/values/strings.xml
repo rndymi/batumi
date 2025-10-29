@@ -6,62 +6,75 @@
     <string name="txtBtnReset">Reset</string>
 
     <!-- Valores del juego -->
-    <integer name="intNumInicialSemillas">4</integer>
-    <string name="txtInitialScore">0</string>
+        <integer name="intNumInicialSemillas">4</integer>
+        <string name="txtInitialScore">0</string>
 
     <!-- Mensaje opción sin implementar -->
-    <string name="txtSinImplementar">¡No implementado aún!</string>
+        <string name="txtSinImplementar">¡No implementado aún!</string>
 
     <!-- Opciones -->
-    <string name="txtReiniciarPartida">Reiniciar</string>
-    <string name="txtOpcionGuardar">Guardar Partida</string>
-    <string name="txtOpcionRecuperar">Recuperar Partida</string>
-    <string name="txtOpcionMejoresResultados">Mejores Resultados</string>
+        <string name="txtReiniciarPartida">Reiniciar</string>
+        <string name="txtOpcionGuardar">Guardar Partida</string>
+        <string name="txtOpcionRecuperar">Recuperar Partida</string>
+        <string name="txtOpcionMejoresResultados">Mejores Resultados</string>
 
     <!-- Acerca de -->
-    <string name="aboutText">Acerca de</string>
-    <string name="aboutTitle">¿Cómo se juega?</string>
-    <string name="aboutMessage"><p>Cada jugador elige una de sus 6 casillas -que no puede estar vacía-, recoge
-        todas las semillas que contenga y las “siembra” una a una en sentido contrario a las agujas del reloj
-        en las siguientes casillas del tablero (excepto en el almacén del oponente). Se aplican las siguientes reglas:</p>
-        <ul>
-            <li>Si la siembra termina en el almacén propio, el jugador vuelve a tener el turno</li>
-            <li>Si la siembra termina en una casilla propia que estuviera vacía, se lleva al almacén
-                propio la última semilla y las que hubiera en la casilla opuesta del otro jugador</li>
-            <li>El juego termina en el momento en que cualquiera de los dos jugadores tenga todas sus
-                casillas vacías. Si el contrario dispone de semillas, éstas pasarán al almacén del propietario
-                de las casillas</li>
-        </ul>
-        <p>Gana el jugador que consiga en su almacén el mayor número de semillas</p>
-    </string>
+        <string name="aboutText">Acerca de</string>
+        <string name="aboutTitle">¿Cómo se juega?</string>
+        <string name="aboutMessage"><p>Cada jugador elige una de sus 6 casillas -que no puede estar vacía-, recoge
+            todas las semillas que contenga y las “siembra” una a una en sentido contrario a las agujas del reloj
+            en las siguientes casillas del tablero (excepto en el almacén del oponente). Se aplican las siguientes reglas:</p>
+            <ul>
+                <li>Si la siembra termina en el almacén propio, el jugador vuelve a tener el turno</li>
+                <li>Si la siembra termina en una casilla propia que estuviera vacía, se lleva al almacén
+                    propio la última semilla y las que hubiera en la casilla opuesta del otro jugador</li>
+                <li>El juego termina en el momento en que cualquiera de los dos jugadores tenga todas sus
+                    casillas vacías. Si el contrario dispone de semillas, éstas pasarán al almacén del propietario
+                    de las casillas</li>
+            </ul>
+            <p>Gana el jugador que consiga en su almacén el mayor número de semillas</p>
+        </string>
 
     <!-- Preferencias -->
-    <string name="preferencesText">Ajustes</string>
-    <string name="prefTituloCategoria1">Datos personales</string>
-    <string name="prefTituloNombreJugador">Nombre del jugador</string>
-    <string name="prefTextoNombreJugador">Pulse para teclear el nombre del jugador</string>
-    <string name="prefTituloCategoria2">Ajustes del juego</string>
-    <string name="prefTituloCategoria3">Más información…</string>
+        <string name="preferencesText">Ajustes</string>
+        <string name="prefTituloCategoria1">Datos personales</string>
+        <string name="prefTituloNombreJugador">Nombre del jugador</string>
+        <string name="prefTextoNombreJugador">Pulse para teclear el nombre del jugador</string>
+        <string name="prefTituloCategoria2">Ajustes del juego</string>
+        <string name="prefTituloCategoria3">Más información…</string>
 
     <!-- Diálogo Final -->
-    <string name="txtDialogoFinalTitulo">Fin del juego</string>
-    <string name="txtDialogoFinalPregunta">¿Desea jugar otra partida?</string>
+        <string name="txtDialogoFinalTitulo">Fin del juego</string>
+        <string name="txtDialogoFinalPregunta">¿Desea jugar otra partida?</string>
 
     <!-- Reiniciar Partida -->
-    <string name="resetGameMsg"> ¿Desea reiniciar la partida? 🤔 </string>
-    <string name="resetGameConfirm"> Partida Reiniciada con exito! 👏 </string>
+        <string name="resetGameMsg"> ¿Desea reiniciar la partida? 🤔 </string>
+        <string name="resetGameConfirm"> Partida Reiniciada con exito! 👏 </string>
+
+    <!-- Ajustes -->
+        <string name="key_Ajustes"> opc_Fichero </string>
+        <string name="title_Ajustes"> OPCIONES DE ALMACENAMIENTO </string>
+
+        <string name="key_NombreFichero">pref_NombreFichero</string>
+        <string name="title_NombreFichero">Nombre del Fichero</string>
+
+        <string name="default_NombreFichero">bantumi_game.txt</string>
+
+    <!-- Tarjeta SD -->
+        <string name="key_TarjetaSD">utilizarTarjetaSD</string>
+        <bool   name="default_prefTarjetaSD">false</bool>
+        <string name="txtPrefTarjetaSD">Almacenamiento en tarjeta SD</string>
+        <string name="txtPrefTarjetaSDExplicación">
+                                Si se activa esta opción se almacenará la información
+                                en la tarjeta SD (si está disponible)
+        </string>
+        <string name="txtErrorMemExterna">
+                ERROR: No es posible acceder a la memoria externa
+        </string>
 
     <!-- Guardar Partida -->
-    <string name="key_Guardado"> opc_Fichero </string>
-    <string name="title_Guardado"> OPCIONES DE ALMACENAMIENTO </string>
-
-    <string name="key_NombreFichero">pref_NombreFichero</string>
-    <string name="title_NombreFichero">Nombre del Fichero</string>
-
-    <string name="default_NombreFichero">bantumi_game.txt</string>
-
-    <string name="saveGameMsg"> ¿Desea guardar la partida? 🤔 </string>
-    <string name="saveGameConfirm"> Partida Guardada con exito! 👏 </string>
+        <string name="saveGameMsg"> ¿Desea guardar la partida? 🤔 </string>
+        <string name="saveGameConfirm"> Partida Guardada con exito! 👏 </string>
 
 
 </resources>

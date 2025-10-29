@@ -2,7 +2,9 @@ package es.upm.miw.bantumi.ui.actividades;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +19,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -252,6 +254,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         partidaEnCurso = savedInstanceState.getBoolean("partidaEnCurso", false);
+    }
+
+    /** Metodos de Ajustes
+     * */
+    private String obtenerNombreFichero() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        return prefs.getString(getString(R.string.key_NombreFichero),
+                getString(R.string.default_NombreFichero));
+    }
+
+    private boolean utilizarMemInterna() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        return !prefs.getBoolean(getString(R.string.key_TarjetaSD), false)
+                || !Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
     /** Metodos de Guardar
