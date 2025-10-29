@@ -10,10 +10,10 @@ import java.util.List;
 @Dao
 public interface PuntuacionDAO {
 
-    @Query("SELECT * FROM puntuaciones ORDER BY semillasJugador1 DESC LIMIT 10")
-    List<Puntuacion> getTop10();
+    @Query("SELECT * FROM " + Puntuacion.TABLA)
+    List<Puntuacion> getAll();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Puntuacion puntuacion);
+    long insert(Puntuacion puntuacion);
 
 }

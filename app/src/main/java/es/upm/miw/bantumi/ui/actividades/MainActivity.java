@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -82,15 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
         preferencias = PreferenceManager.getDefaultSharedPreferences(this);
 
-        puntuacionRepositorio = Room.databaseBuilder(
-                getApplicationContext(),
-                PuntuacionRepositorio.class,
-                PuntuacionRepositorio.BASE_DATOS
-                )
-                .allowMainThreadQueries()
-                .build();
-        puntuacionRepositorio.puntuacionDAO().insert(new Puntuacion("Jugador 1", "2025-10-29T10:00", 12, 8));
-        List<Puntuacion> puntuaciones = puntuacionRepositorio.puntuacionDAO().getTop10();
+        puntuacionRepositorio = new PuntuacionRepositorio(getApplication());
+        puntuaciones = puntuacionRepositorio.getAllPuntuaciones();
 
         crearObservadores();
     }
@@ -305,6 +299,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // @TODO guardar puntuación
+        Puntuacion puntuacion = new Puntuacion("Jugador 1", new Date().toString(), juegoBantumi.getSemillas(6), juegoBantumi.getSemillas(13));
+        puntuacionRepositorio.insert(puntuacion);
+
+        Log.i(LOG_TAG, "[ Puntuación guardada ] Jugador 1: " + juegoBantumi.getSemillas(6) + " - Jugador 2: " + juegoBantumi.getSemillas(13));
 
         // terminar
         new FinalAlertDialog(texto).show(getSupportFragmentManager(), "ALERT_DIALOG");

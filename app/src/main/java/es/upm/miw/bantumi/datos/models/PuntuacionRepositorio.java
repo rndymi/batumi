@@ -1,13 +1,27 @@
 package es.upm.miw.bantumi.datos.models;
 
-import androidx.room.Database;
-import androidx.room.RoomDatabase;
+import android.app.Application;
 
-@Database(entities = {Puntuacion.class}, version = 1)
-public abstract class PuntuacionRepositorio extends RoomDatabase {
+import java.util.List;
 
-    public static final String BASE_DATOS = Puntuacion.TABLA + ".db";
+public class PuntuacionRepositorio {
 
-    public abstract PuntuacionDAO puntuacionDAO();
+    private PuntuacionDAO mPuntuacionDAO;
+
+    private List<Puntuacion> mPuntuaciones;
+
+    public PuntuacionRepositorio(Application application) {
+        PuntuacionRoomDatabase db = PuntuacionRoomDatabase.getDatabase(application);
+        mPuntuacionDAO = db.puntuacionDAO();
+        mPuntuaciones = mPuntuacionDAO.getAll();
+    }
+
+    public List<Puntuacion> getAllPuntuaciones() {
+        return mPuntuaciones;
+    }
+
+    public void insert(Puntuacion puntuacion) {
+        mPuntuacionDAO.insert(puntuacion);
+    }
 
 }
