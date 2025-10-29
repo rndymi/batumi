@@ -318,13 +318,13 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             if (utilizarMemInterna()) {
-                fos = openFileOutput(obtenerNombreFichero(), Context.MODE_APPEND);
+                fos = openFileOutput(obtenerNombreFichero(), Context.MODE_PRIVATE);
                 Log.i(LOG_TAG, "Partida guardada en memoria interna");
             } else {
                 String estadoTarjetaSD = Environment.getExternalStorageState();
                 if (estadoTarjetaSD.equals(Environment.MEDIA_MOUNTED)) {
                     String rutaFich = getExternalFilesDir(null) + "/" + obtenerNombreFichero();
-                    fos = new FileOutputStream(rutaFich, true);
+                    fos = new FileOutputStream(rutaFich, false);
                     Log.i(LOG_TAG, "Partida guardada en tarjeta SD");
                 } else {
                     Toast.makeText(
@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
             }
-            fos.write((contenido+"\n").getBytes());
+            fos.write((contenido).getBytes());
             fos.close();
             Log.i(LOG_TAG, "Partida guardada en fichero correctamente");
         } catch (Exception e) {
