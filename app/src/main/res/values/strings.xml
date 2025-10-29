@@ -50,6 +50,7 @@
     <!-- Reiniciar Partida -->
         <string name="resetGameMsg"> ¿Desea reiniciar la partida? 🤔 </string>
         <string name="resetGameConfirm"> Partida Reiniciada con exito! 👏 </string>
+        <string name="resetGameError"> No se ha podido reiniciar la partida </string>
 
     <!-- Ajustes -->
         <string name="key_Ajustes"> opc_Fichero </string>
@@ -59,6 +60,7 @@
         <string name="title_NombreFichero">Nombre del Fichero</string>
 
         <string name="default_NombreFichero">bantumi_game.txt</string>
+        <string name="emptyFichero"> No hay datos en el fichero </string>
 
     <!-- Tarjeta SD -->
         <string name="key_TarjetaSD">utilizarTarjetaSD</string>
@@ -75,6 +77,12 @@
     <!-- Guardar Partida -->
         <string name="saveGameMsg"> ¿Desea guardar la partida? 🤔 </string>
         <string name="saveGameConfirm"> Partida Guardada con exito! 👏 </string>
+        <string name="saveGameError"> No se ha podido guardar la partida </string>
+
+    <!-- Recuperar Partida -->
+        <string name="loadGameMsg"> ¿Desea cargar la partida? 🤔 </string>
+        <string name="loadGameConfirm"> Partida cargada con exito! 👏 </string>
+        <string name="loadGameError"> No se ha podido cargar la partida </string>
 
 
 </resources>

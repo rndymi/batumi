@@ -28,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Locale;
@@ -194,6 +195,29 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
+            case R.id.opcRecuperarPartida:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.txtOpcionRecuperar)
+                        .setMessage(R.string.loadGameMsg)
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+
+                            String datos = recuperarDeFichero();
+
+                            if (datos == null || datos.isEmpty()) {
+                                Log.w(LOG_TAG, "No se encontró partida guardada");
+                                return;
+                            }
+
+                            juegoBantumi.deserializa(datos);
+                            Toast.makeText(this, R.string.loadGameConfirm, Toast.LENGTH_SHORT).show();
+                            Log.i(LOG_TAG, "* Partida recuperada");
+                            Log.i(LOG_TAG, "-------------------------------------------------------");
+
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+                return true;
+
             case R.id.opcAjustes:
                 Log.i(LOG_TAG, "opción AJUSTES");
                 Intent intent = new Intent(this, SettingActivity.class);
@@ -227,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
                 partidaEnCurso = true;
                 invalidateOptionsMenu();
                 Log.i(LOG_TAG, "* La partida ha comenzado");
+                Log.i(LOG_TAG, "-------------------------------------------------------");
             }
         }
 
@@ -312,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
     /** Metodos de Guardar
     * */
 
-    private void guardarEnFichero(String contenido){
+    public void guardarEnFichero(String contenido){
 
         FileOutputStream fos;
 
@@ -344,6 +369,51 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /** Metodo de Recuperar
+     * */
 
+    public String recuperarDeFichero() {
+
+        boolean hayContenido = false;
+        BufferedReader fin;
+        StringBuilder contenido = new StringBuilder();
+
+        try {
+            if (utilizarMemInterna()) {
+                fin = new BufferedReader(
+                        new InputStreamReader(openFileInput(obtenerNombreFichero())));
+            } else {
+                String estadoTarjetaSD = Environment.getExternalStorageState();
+                if (estadoTarjetaSD.equals(Environment.MEDIA_MOUNTED)) {
+                    String rutaFich = getExternalFilesDir(null) + "/" + obtenerNombreFichero();
+                    Log.i(LOG_TAG, "rutaSD=" + rutaFich);
+                    fin = new BufferedReader(new FileReader(new File(rutaFich)));
+                } else {
+                    Log.i(LOG_TAG, "Estado SDcard=" + estadoTarjetaSD);
+                    Toast.makeText(this, getString(R.string.txtErrorMemExterna), Toast.LENGTH_SHORT).show();
+                    return "";
+                }
+            }
+
+            String linea = fin.readLine();
+            while (linea != null) {
+                hayContenido = true;
+                contenido.append(linea);
+                linea = fin.readLine();
+            }
+            fin.close();
+            Log.i(LOG_TAG, "Fichero leído correctamente");
+
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "FILE I/O ERROR: " + e.getMessage());
+            e.printStackTrace();
+        }
+        if (!hayContenido) {
+            Toast.makeText(this, R.string.emptyFichero, Toast.LENGTH_SHORT).show();
+        }
+
+        return contenido.toString();
+
+    }
 
 }
