@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
+import androidx.room.Room;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,8 +32,11 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Locale;
 
+import es.upm.miw.bantumi.datos.models.Puntuacion;
+import es.upm.miw.bantumi.datos.models.PuntuacionRepositorio;
 import es.upm.miw.bantumi.ui.fragmentos.FinalAlertDialog;
 import es.upm.miw.bantumi.R;
 import es.upm.miw.bantumi.dominio.logica.JuegoBantumi;
@@ -52,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
     /** Variable de Ajustes
      * */
     private SharedPreferences preferencias;
+
+    /** Variables instaciadas
+     * */
+
+    PuntuacionRepositorio puntuacionRepositorio;
+    List<Puntuacion> puntuaciones;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

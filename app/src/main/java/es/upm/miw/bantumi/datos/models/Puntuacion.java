@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = Puntuacion.TABLA)
 public class Puntuacion {
 
-    static public final String TABLA = "puntuacion";
+    static public final String TABLA = "puntuaciones";
+
     @PrimaryKey(autoGenerate = true)
     protected int uid;
 
@@ -16,8 +17,7 @@ public class Puntuacion {
     protected int semillasJugador1;
     protected int semillasJugador2;
 
-    public Puntuacion(int uid, @NonNull String nombreJugador, String fechaHora, int semillasJugador1, int semillasJugador2) {
-        this.uid = uid;
+    public Puntuacion(@NonNull String nombreJugador, String fechaHora, int semillasJugador1, int semillasJugador2) {
         this.nombreJugador = nombreJugador;
         this.fechaHora = fechaHora;
         this.semillasJugador1 = semillasJugador1;
@@ -65,13 +65,4 @@ public class Puntuacion {
         this.semillasJugador2 = semillasJugador2;
     }
 
-    @Override
-    public String toString() {
-        return "Puntuacion{" +
-                ", nombreJugador='" + nombreJugador + '\'' +
-                ", fechaHora='" + fechaHora + '\'' +
-                ", semillasJugador1=" + semillasJugador1 +
-                ", semillasJugador2=" + semillasJugador2 +
-                '}';
-    }
 }
