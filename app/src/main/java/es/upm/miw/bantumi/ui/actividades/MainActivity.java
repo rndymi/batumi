@@ -82,6 +82,16 @@ public class MainActivity extends AppCompatActivity {
 
         preferencias = PreferenceManager.getDefaultSharedPreferences(this);
 
+        puntuacionRepositorio = Room.databaseBuilder(
+                getApplicationContext(),
+                PuntuacionRepositorio.class,
+                PuntuacionRepositorio.BASE_DATOS
+                )
+                .allowMainThreadQueries()
+                .build();
+        puntuacionRepositorio.puntuacionDAO().insert(new Puntuacion("Jugador 1", "2025-10-29T10:00", 12, 8));
+        List<Puntuacion> puntuaciones = puntuacionRepositorio.puntuacionDAO().getTop10();
+
         crearObservadores();
     }
 
