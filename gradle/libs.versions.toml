@@ -6,6 +6,7 @@ constraintLayoutVersion = '2.2.1'
 lifecycleVersion = '2.9.4'
 preferenceVersion = '1.2.1'
 roomVersion = '2.8.3'
+roomCommonJvmVersion = "2.8.3"
 
 [libraries]
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompatVersion" }
@@ -18,6 +19,7 @@ roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = 
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycleVersion" }
 androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycleVersion" }
 androidx-lifecycle-livedata-core = { group = "androidx.lifecycle", name = "lifecycle-livedata-core", version.ref = "lifecycleVersion" }
+androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvmVersion" }
 
 [plugins]
 android-application = { id = 'com.android.application', version.ref = 'agpVersion' }
