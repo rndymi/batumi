@@ -1,6 +1,7 @@
 package es.upm.miw.bantumi.ui.actividades;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +24,12 @@ import androidx.preference.PreferenceManager;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Locale;
 
 import es.upm.miw.bantumi.ui.fragmentos.FinalAlertDialog;
@@ -41,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     */
     private boolean partidaEnCurso = false;
 
+    /** Variable de Ajustes
+     * */
+    private SharedPreferences preferencias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         numInicialSemillas = getResources().getInteger(R.integer.intNumInicialSemillas);
         bantumiVM = new ViewModelProvider(this).get(BantumiViewModel.class);
         juegoBantumi = new JuegoBantumi(bantumiVM, JuegoBantumi.Turno.turnoJ1, numInicialSemillas);
+
+        preferencias = PreferenceManager.getDefaultSharedPreferences(this);
+
         crearObservadores();
     }
 
@@ -137,9 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.opcAjustes: // @todo Preferencias
-//                startActivity(new Intent(this, BantumiPrefs.class));
-//                return true;
             case R.id.opcAcercaDe:
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.aboutTitle)
@@ -160,6 +171,24 @@ public class MainActivity extends AppCompatActivity {
                             invalidateOptionsMenu();
                             Toast.makeText(this, R.string.resetGameConfirm, Toast.LENGTH_SHORT).show();
                             Log.i(LOG_TAG, "* Partida Reiniciada");
+                            Log.i(LOG_TAG, "-------------------------------------------------------");
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+                return true;
+
+            case R.id.opcGuardarPartida:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.txtOpcionGuardar)
+                        .setMessage(R.string.saveGameMsg)
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+
+                            String datos = juegoBantumi.serializa();
+                            guardarEnFichero(datos);
+                            Toast.makeText(this, R.string.saveGameConfirm, Toast.LENGTH_SHORT).show();
+                            Log.i(LOG_TAG, "* Partida guardada");
+                            Log.i(LOG_TAG, "-------------------------------------------------------");
+
                         })
                         .setNegativeButton(android.R.string.no, null)
                         .show();
@@ -240,7 +269,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem itemReiniciar = menu.findItem(R.id.opcReiniciarPartida);
+        MenuItem itemGuardar   = menu.findItem(R.id.opcGuardarPartida);
         itemReiniciar.setEnabled(partidaEnCurso);
+        itemGuardar.setEnabled(partidaEnCurso);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -259,19 +290,59 @@ public class MainActivity extends AppCompatActivity {
     /** Metodos de Ajustes
      * */
     private String obtenerNombreFichero() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        return prefs.getString(getString(R.string.key_NombreFichero),
-                getString(R.string.default_NombreFichero));
+        String nombreFichero = preferencias.getString(
+                getString(R.string.key_NombreFichero),
+                getString(R.string.default_NombreFichero)
+        );
+        Log.i(LOG_TAG, "Nombre fichero: " + nombreFichero);
+
+        return nombreFichero;
     }
 
     private boolean utilizarMemInterna() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        return !prefs.getBoolean(getString(R.string.key_TarjetaSD), false)
-                || !Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+        boolean utilizarMemInterna = !preferencias.getBoolean(
+                getString(R.string.key_TarjetaSD),
+                getResources().getBoolean(R.bool.default_prefTarjetaSD)
+        );
+        Log.i(LOG_TAG, "Memoria SD: " + ((!utilizarMemInterna) ? "ON" : "OFF"));
+
+        return utilizarMemInterna;
     }
 
     /** Metodos de Guardar
     * */
+
+    private void guardarEnFichero(String contenido){
+
+        FileOutputStream fos;
+
+        try {
+            if (utilizarMemInterna()) {
+                fos = openFileOutput(obtenerNombreFichero(), Context.MODE_APPEND);
+                Log.i(LOG_TAG, "Partida guardada en memoria interna");
+            } else {
+                String estadoTarjetaSD = Environment.getExternalStorageState();
+                if (estadoTarjetaSD.equals(Environment.MEDIA_MOUNTED)) {
+                    String rutaFich = getExternalFilesDir(null) + "/" + obtenerNombreFichero();
+                    fos = new FileOutputStream(rutaFich, true);
+                    Log.i(LOG_TAG, "Partida guardada en tarjeta SD");
+                } else {
+                    Toast.makeText(
+                            this,
+                            getString(R.string.txtErrorMemExterna),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    return;
+                }
+            }
+            fos.write((contenido+"\n").getBytes());
+            fos.close();
+            Log.i(LOG_TAG, "Partida guardada en fichero correctamente");
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "FILE I/O ERROR: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
 

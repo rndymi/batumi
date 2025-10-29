@@ -204,8 +204,12 @@ public class JuegoBantumi {
      * @return juego serializado
      */
     public String serializa() {
-        // @TODO
-        return null;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < NUM_POSICIONES; i++) {
+            sb.append(getSemillas(i)).append(",");
+        }
+        sb.append(turnoActual().name());
+        return sb.toString();
     }
 
     /**
@@ -214,6 +218,13 @@ public class JuegoBantumi {
      * @param juegoSerializado cadena que representa el estado completo del juego
      */
     public void deserializa(String juegoSerializado) {
-        // @TODO
+        if (juegoSerializado == null || juegoSerializado.isEmpty()) {
+            return;
+        }
+        String[] p = juegoSerializado.split(",");
+        for (int i = 0; i < NUM_POSICIONES; i++) {
+            setSemillas(i, Integer.parseInt(p[i]));
+        }
+        setTurno(Turno.valueOf(p[NUM_POSICIONES]));
     }
 }
