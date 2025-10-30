@@ -233,6 +233,12 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
+            case R.id.opcMejoresResultados:
+                Log.i(LOG_TAG, "opción MEJORES RESULTADOS");
+                Intent abrir = new Intent(this, MejoresResultadosActivity.class);
+                startActivity(abrir);
+                break;
+
             case R.id.opcAjustes:
                 Log.i(LOG_TAG, "opción AJUSTES");
                 Intent intent = new Intent(this, SettingActivity.class);
