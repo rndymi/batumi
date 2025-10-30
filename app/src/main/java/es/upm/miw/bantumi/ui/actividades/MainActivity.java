@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
      * */
 
     PuntuacionRepositorio puntuacionRepositorio;
-    List<Puntuacion> puntuaciones;
+    LiveData<List<Puntuacion>> puntuaciones;
 
 
     @Override

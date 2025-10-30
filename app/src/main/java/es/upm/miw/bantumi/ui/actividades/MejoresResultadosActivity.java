@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import es.upm.miw.bantumi.R;
 import es.upm.miw.bantumi.datos.models.Puntuacion;
 import es.upm.miw.bantumi.datos.models.PuntuacionRepositorio;
+import es.upm.miw.bantumi.datos.models.PuntuacionViewModel;
 import es.upm.miw.bantumi.datos.views.PuntuacionListAdapter;
 
 public class MejoresResultadosActivity extends AppCompatActivity {
@@ -30,6 +32,7 @@ public class MejoresResultadosActivity extends AppCompatActivity {
 
     PuntuacionRepositorio puntuacionRepositorio;
     List<Puntuacion> puntuaciones;
+    PuntuacionViewModel puntuacionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,8 @@ public class MejoresResultadosActivity extends AppCompatActivity {
         final PuntuacionListAdapter adapter = new PuntuacionListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setPuntuaciones(puntuaciones);
+        puntuacionViewModel = new ViewModelProvider(this).get(PuntuacionViewModel.class);
+        puntuacionViewModel.getAllPuntuaciones().observe(this, adapter::setPuntuaciones);
 
     }
 
@@ -73,6 +77,8 @@ public class MejoresResultadosActivity extends AppCompatActivity {
                         .setTitle(R.string.txtEliminarResultado)
                         .setMessage(R.string.deleteResultsMsg)
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+
+                            //Falta agregar el metodo borrar
 
                             Toast.makeText(this, R.string.deleteResultsConfirm, Toast.LENGTH_SHORT).show();
                             Log.i(LOG_TAG, "* Resultados Eliminados");
