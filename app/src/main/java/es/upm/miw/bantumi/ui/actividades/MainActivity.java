@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
+import androidx.room.Room;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,8 +32,12 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import es.upm.miw.bantumi.datos.models.Puntuacion;
+import es.upm.miw.bantumi.datos.models.PuntuacionRepositorio;
 import es.upm.miw.bantumi.ui.fragmentos.FinalAlertDialog;
 import es.upm.miw.bantumi.R;
 import es.upm.miw.bantumi.dominio.logica.JuegoBantumi;
@@ -53,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
      * */
     private SharedPreferences preferencias;
 
+    /** Variables instaciadas
+     * */
+
+    PuntuacionRepositorio puntuacionRepositorio;
+    List<Puntuacion> puntuaciones;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         juegoBantumi = new JuegoBantumi(bantumiVM, JuegoBantumi.Turno.turnoJ1, numInicialSemillas);
 
         preferencias = PreferenceManager.getDefaultSharedPreferences(this);
+
+        puntuacionRepositorio = new PuntuacionRepositorio(getApplication());
+        puntuaciones = puntuacionRepositorio.getAllPuntuaciones();
 
         crearObservadores();
     }
@@ -284,6 +299,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // @TODO guardar puntuación
+        Puntuacion puntuacion = new Puntuacion("Jugador 1", new Date().toString(), juegoBantumi.getSemillas(6), juegoBantumi.getSemillas(13));
+        puntuacionRepositorio.insert(puntuacion);
+
+        Log.i(LOG_TAG, "[ Puntuación guardada ] Jugador 1: " + juegoBantumi.getSemillas(6) + " - Jugador 2: " + juegoBantumi.getSemillas(13));
 
         // terminar
         new FinalAlertDialog(texto).show(getSupportFragmentManager(), "ALERT_DIALOG");
