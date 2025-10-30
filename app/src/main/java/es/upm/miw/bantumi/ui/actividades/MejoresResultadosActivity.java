@@ -58,11 +58,6 @@ public class MejoresResultadosActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -72,13 +67,19 @@ public class MejoresResultadosActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
+
             case R.id.opcEliminarResultados:
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.txtEliminarResultado)
                         .setMessage(R.string.deleteResultsMsg)
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
 
-                            //Falta agregar el metodo borrar
+                            puntuacionViewModel.deleteAll();
 
                             Toast.makeText(this, R.string.deleteResultsConfirm, Toast.LENGTH_SHORT).show();
                             Log.i(LOG_TAG, "* Resultados Eliminados");

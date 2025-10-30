@@ -17,4 +17,7 @@ public interface PuntuacionDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert(Puntuacion puntuacion);
 
+    @Query("DELETE FROM " + Puntuacion.TABLA)
+    void deleteAll();
+
 }

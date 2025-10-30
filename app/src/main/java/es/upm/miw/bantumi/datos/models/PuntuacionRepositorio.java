@@ -26,4 +26,8 @@ public class PuntuacionRepositorio {
         mPuntuacionDAO.insert(puntuacion);
     }
 
+    public void deleteAll() {
+        mPuntuacionDAO.deleteAll();
+    }
+
 }

@@ -27,4 +27,8 @@ public class PuntuacionViewModel extends AndroidViewModel {
         mRepository.insert(puntuacion);
     }
 
+    public void deleteAll() {
+        mRepository.deleteAll();
+    }
+
 }
