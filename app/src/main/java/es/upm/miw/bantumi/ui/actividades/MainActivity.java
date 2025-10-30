@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
      * */
 
     PuntuacionRepositorio puntuacionRepositorio;
-    List<Puntuacion> puntuaciones;
+    LiveData<List<Puntuacion>> puntuaciones;
 
 
     @Override
@@ -232,6 +233,12 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton(android.R.string.no, null)
                         .show();
                 return true;
+
+            case R.id.opcMejoresResultados:
+                Log.i(LOG_TAG, "opción MEJORES RESULTADOS");
+                Intent abrir = new Intent(this, MejoresResultadosActivity.class);
+                startActivity(abrir);
+                break;
 
             case R.id.opcAjustes:
                 Log.i(LOG_TAG, "opción AJUSTES");

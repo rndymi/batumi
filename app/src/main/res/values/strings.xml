@@ -84,5 +84,10 @@
         <string name="loadGameConfirm"> Partida cargada con exito! 👏 </string>
         <string name="loadGameError"> No se ha podido cargar la partida </string>
 
+    <!-- Mejores Resultados -->
+        <string name="txtEliminarResultado">Eliminar Resultados</string>
+        <string name="deleteResultsMsg"> ¿Desea eliminar los resultados anteriores? 🤔" </string>
+        <string name="deleteResultsConfirm"> Resultados eliminados con exito! 👏 </string>
+        <string name="deleteResultsError"> No se ha podido eliminar los resultados </string>
 
 </resources>

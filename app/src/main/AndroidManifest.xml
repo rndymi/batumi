@@ -24,6 +24,9 @@
 
         <activity android:name=".ui.actividades.SettingActivity">
         </activity>
+
+        <activity android:name=".ui.actividades.MejoresResultadosActivity">
+        </activity>
     </application>
 
 </manifest>

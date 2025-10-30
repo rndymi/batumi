@@ -2,13 +2,15 @@ package es.upm.miw.bantumi.datos.models;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
 public class PuntuacionRepositorio {
 
     private PuntuacionDAO mPuntuacionDAO;
 
-    private List<Puntuacion> mPuntuaciones;
+    private LiveData<List<Puntuacion>> mPuntuaciones;
 
     public PuntuacionRepositorio(Application application) {
         PuntuacionRoomDatabase db = PuntuacionRoomDatabase.getDatabase(application);
@@ -16,12 +18,16 @@ public class PuntuacionRepositorio {
         mPuntuaciones = mPuntuacionDAO.getAll();
     }
 
-    public List<Puntuacion> getAllPuntuaciones() {
+    public LiveData<List<Puntuacion>> getAllPuntuaciones() {
         return mPuntuaciones;
     }
 
     public void insert(Puntuacion puntuacion) {
         mPuntuacionDAO.insert(puntuacion);
+    }
+
+    public void deleteAll() {
+        mPuntuacionDAO.deleteAll();
     }
 
 }
