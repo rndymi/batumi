@@ -79,15 +79,45 @@ public class MainActivity extends AppCompatActivity {
 
         // Instancia el ViewModel y el juego, y asigna observadores a los huecos
         numInicialSemillas = getResources().getInteger(R.integer.intNumInicialSemillas);
+        preferencias = PreferenceManager.getDefaultSharedPreferences(this);
+
+        numInicialSemillas = Integer.parseInt(
+                preferencias.getString(
+                        getString(R.string.key_NInitSemillas),
+                        "4"
+                )
+        );
+
         bantumiVM = new ViewModelProvider(this).get(BantumiViewModel.class);
         juegoBantumi = new JuegoBantumi(bantumiVM, JuegoBantumi.Turno.turnoJ1, numInicialSemillas);
-
-        preferencias = PreferenceManager.getDefaultSharedPreferences(this);
 
         puntuacionRepositorio = new PuntuacionRepositorio(getApplication());
         puntuaciones = puntuacionRepositorio.getAllPuntuaciones();
 
         crearObservadores();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String defSemillas = String.valueOf(getResources().getInteger(R.integer.intNumInicialSemillas));
+        int nuevasSemillas;
+        try {
+            nuevasSemillas = Integer.parseInt(
+                    preferencias.getString(getString(R.string.key_NInitSemillas), defSemillas)
+            );
+        } catch (NumberFormatException e) {
+            nuevasSemillas = getResources().getInteger(R.integer.intNumInicialSemillas);
+        }
+
+        if (nuevasSemillas != numInicialSemillas) {
+            numInicialSemillas = nuevasSemillas;
+            juegoBantumi.resetPartida(JuegoBantumi.Turno.turnoJ1, numInicialSemillas);
+            partidaEnCurso = false;
+            invalidateOptionsMenu();
+            Log.i(LOG_TAG, "* Semillas iniciales cambiadas a " + numInicialSemillas + ". Tablero reiniciado.");
+        }
     }
 
     /**
@@ -183,8 +213,14 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle(R.string.txtReiniciarPartida)
                         .setMessage(R.string.resetGameMsg)
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                            int prefSemillas = Integer.parseInt(
+                                    preferencias.getString(getString(R.string.key_NInitSemillas), "4")
+                            );
+                            numInicialSemillas = prefSemillas;
+
                             juegoBantumi.inicializar(JuegoBantumi.Turno.turnoJ1);
                             partidaEnCurso = false;
+
                             invalidateOptionsMenu();
                             Toast.makeText(this, R.string.resetGameConfirm, Toast.LENGTH_SHORT).show();
                             Log.i(LOG_TAG, "* Partida Reiniciada");
@@ -221,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if (datos == null || datos.isEmpty()) {
                                 Log.w(LOG_TAG, "No se encontró partida guardada");
+                                Log.i(LOG_TAG, "-------------------------------------------------------");
                                 return;
                             }
 
@@ -236,12 +273,14 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.opcMejoresResultados:
                 Log.i(LOG_TAG, "opción MEJORES RESULTADOS");
+                Log.i(LOG_TAG, "-------------------------------------------------------");
                 Intent abrir = new Intent(this, MejoresResultadosActivity.class);
                 startActivity(abrir);
                 break;
 
             case R.id.opcAjustes:
                 Log.i(LOG_TAG, "opción AJUSTES");
+                Log.i(LOG_TAG, "-------------------------------------------------------");
                 Intent intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);
                 break;
@@ -298,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
      * El juego ha terminado. Volver a jugar?
      */
     private void finJuego() {
+        Log.i(LOG_TAG, "==== Fin de la partida ====");
         String texto = (juegoBantumi.getSemillas(6) > 6 * numInicialSemillas)
                 ? "Gana Jugador 1"
                 : "Gana Jugador 2";
@@ -310,9 +350,12 @@ public class MainActivity extends AppCompatActivity {
         puntuacionRepositorio.insert(puntuacion);
 
         Log.i(LOG_TAG, "[ Puntuación guardada ] Jugador 1: " + juegoBantumi.getSemillas(6) + " - Jugador 2: " + juegoBantumi.getSemillas(13));
+        Log.i(LOG_TAG, "-------------------------------------------------------");
 
         // terminar
         new FinalAlertDialog(texto).show(getSupportFragmentManager(), "ALERT_DIALOG");
+        partidaEnCurso = false;
+        invalidateOptionsMenu();  // deshabilita Reiniciar y Guardar
     }
 
     /** Metodos de Reiniciar
@@ -437,9 +480,7 @@ public class MainActivity extends AppCompatActivity {
         if (!hayContenido) {
             Toast.makeText(this, R.string.emptyFichero, Toast.LENGTH_SHORT).show();
         }
-
         return contenido.toString();
-
     }
 
 }

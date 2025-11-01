@@ -90,4 +90,13 @@
         <string name="deleteResultsConfirm"> Resultados eliminados con exito! 👏 </string>
         <string name="deleteResultsError"> No se ha podido eliminar los resultados </string>
 
+    <!-- Opcional 1: Modificar nº inicial de semillas -->
+    <string name="key_InitModiSemillas"> opc_CambioSemillas </string>
+    <string name="title_InitModiSemillas"> MODIFICAR Nº INICIAL DE SEMILLAS </string>
+
+    <string name="key_NInitSemillas">pref_NInitSemillas</string>
+    <string name="title_NInitSemillas">Número inicial de semillas</string>
+    <string name="txtNInitSemillas">Presiona para modificar las semillas</string>
+
+
 </resources>
