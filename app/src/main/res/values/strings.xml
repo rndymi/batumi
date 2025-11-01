@@ -96,7 +96,7 @@
 
     <string name="key_NInitSemillas">pref_NInitSemillas</string>
     <string name="title_NInitSemillas">Número inicial de semillas</string>
-    <string name="txtNInitSemillas">Presiona para modificar las semillas</string>
+    <string name="txtNInitSemillas">Presiona para modificar las semillas 🌱</string>
 
 
 </resources>

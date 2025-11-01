@@ -31,7 +31,8 @@
             android:summary="@string/txtNInitSemillas"
             android:entries="@array/opciones_semillasiniciar"
             android:entryValues="@array/valores_semillasiniciar"
-            android:defaultValue="4"/>
+            android:defaultValue="4"
+            android:icon="@drawable/compost_36dp"/>
 
     </PreferenceCategory>
 
