@@ -20,7 +20,7 @@ public class JuegoBantumi {
     }
 
     // Número inicial de semillas
-    private final int numInicialSemillas;
+    private int numInicialSemillas;
 
     /**
      * <b>Constructor</b><br>
@@ -32,9 +32,7 @@ public class JuegoBantumi {
     public JuegoBantumi(BantumiViewModel bantumiVM, Turno turno, int numInicialSemillas) {
         this.bantumiVM = bantumiVM;
         this.numInicialSemillas = numInicialSemillas;
-        if (campoVacio(Turno.turnoJ1) && campoVacio(Turno.turnoJ2)) { // Inicializa sólo si está vacío!!!
-            inicializar(turno);
-        }
+        inicializar(turno); // inicializa SIEMPRE al crear la instancia
     }
 
     /**
@@ -53,6 +51,12 @@ public class JuegoBantumi {
      */
     public void setSemillas(int pos, int valor) {
         bantumiVM.setNumSemillas(pos, valor);
+    }
+
+
+    public void resetPartida(Turno turno, int numSemillas) {
+        this.numInicialSemillas = numSemillas;
+        inicializar(turno);
     }
 
     /**

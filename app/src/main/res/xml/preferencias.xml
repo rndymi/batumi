@@ -21,4 +21,18 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="opc_CambioSemillas"
+        android:title="@string/title_InitModiSemillas">
+
+        <ListPreference
+            android:key="@string/key_NInitSemillas"
+            android:title="@string/title_NInitSemillas"
+            android:summary="@string/txtNInitSemillas"
+            android:entries="@array/opciones_semillasiniciar"
+            android:entryValues="@array/valores_semillasiniciar"
+            android:defaultValue="4"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
