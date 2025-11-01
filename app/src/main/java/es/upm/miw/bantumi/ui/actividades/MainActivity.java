@@ -337,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
      * El juego ha terminado. Volver a jugar?
      */
     private void finJuego() {
+        Log.i(LOG_TAG, "==== Fin de la partida ====");
         String texto = (juegoBantumi.getSemillas(6) > 6 * numInicialSemillas)
                 ? "Gana Jugador 1"
                 : "Gana Jugador 2";
@@ -353,6 +354,8 @@ public class MainActivity extends AppCompatActivity {
 
         // terminar
         new FinalAlertDialog(texto).show(getSupportFragmentManager(), "ALERT_DIALOG");
+        partidaEnCurso = false;
+        invalidateOptionsMenu();  // deshabilita Reiniciar y Guardar
     }
 
     /** Metodos de Reiniciar
