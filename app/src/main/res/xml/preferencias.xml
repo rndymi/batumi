@@ -23,8 +23,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="opc_CambioSemillas"
-        android:title="@string/title_InitModiSemillas">
+        android:key="opc_Agregados"
+        android:title="@string/title_opcAgregados">
 
         <ListPreference
             android:key="@string/key_NInitSemillas"
@@ -34,6 +34,15 @@
             android:entryValues="@array/valores_semillasiniciar"
             android:defaultValue="4"
             android:icon="@drawable/compost_36dp"/>
+
+        <ListPreference
+            android:key="@string/key_StarterPlayer"
+            android:title="@string/title_InitialPlayer"
+            android:summary="@string/txtStarterPlayer"
+            android:entries="@array/opciones_jugadorInicial"
+            android:entryValues="@array/valores_jugadorInicial"
+            android:defaultValue="@string/default_StarterPlayer"
+            android:icon="@drawable/manage_accounts_36dp" />
 
     </PreferenceCategory>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--Opcional 1: Escoger las semillas iniciales -->
     <string-array name="opciones_semillasiniciar">
         <item>3 semillas</item>
         <item>4 semillas (por defecto)</item>
@@ -13,6 +13,17 @@
         <item>4</item>
         <item>5</item>
         <item>6</item>
+    </string-array>
+
+    <!-- Opcional 2: Escoger que jugador empieza la partida -->
+    <string-array name="opciones_jugadorInicial">
+        <item>Jugador 1</item>
+        <item>Jugador 2</item>
+    </string-array>
+
+    <string-array name="valores_jugadorInicial">
+        <item>J1</item>
+        <item>J2</item>
     </string-array>
 
 </resources>

@@ -23,7 +23,7 @@ import java.util.List;
 import es.upm.miw.bantumi.R;
 import es.upm.miw.bantumi.datos.models.Puntuacion;
 import es.upm.miw.bantumi.datos.models.PuntuacionRepositorio;
-import es.upm.miw.bantumi.datos.models.PuntuacionViewModel;
+import es.upm.miw.bantumi.ui.viewmodel.PuntuacionViewModel;
 import es.upm.miw.bantumi.datos.views.PuntuacionListAdapter;
 
 public class MejoresResultadosActivity extends AppCompatActivity {
