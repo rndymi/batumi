@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     PuntuacionRepositorio puntuacionRepositorio;
     LiveData<List<Puntuacion>> puntuaciones;
 
+    private JuegoBantumi.Turno turnoInicialAplicado;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +91,21 @@ public class MainActivity extends AppCompatActivity {
         );
 
         bantumiVM = new ViewModelProvider(this).get(BantumiViewModel.class);
-        juegoBantumi = new JuegoBantumi(bantumiVM, JuegoBantumi.Turno.turnoJ1, numInicialSemillas);
+
+        JuegoBantumi.Turno turnoInicial = leerTurnoPreferencias();
+        juegoBantumi = new JuegoBantumi(bantumiVM, turnoInicial, numInicialSemillas);
+        turnoInicialAplicado = turnoInicial;
 
         puntuacionRepositorio = new PuntuacionRepositorio(getApplication());
         puntuaciones = puntuacionRepositorio.getAllPuntuaciones();
 
         crearObservadores();
+    }
+
+    public JuegoBantumi.Turno leerTurnoPreferencias() {
+        String def = getString(R.string.default_StarterPlayer);
+        String v = preferencias.getString(getString(R.string.key_StarterPlayer), def);
+        return "J2".equals(v) ? JuegoBantumi.Turno.turnoJ2 : JuegoBantumi.Turno.turnoJ1;
     }
 
     @Override
@@ -111,12 +122,19 @@ public class MainActivity extends AppCompatActivity {
             nuevasSemillas = getResources().getInteger(R.integer.intNumInicialSemillas);
         }
 
-        if (nuevasSemillas != numInicialSemillas) {
+        JuegoBantumi.Turno nuevoTurnoInicial = leerTurnoPreferencias();
+        boolean cambioSemillas = nuevasSemillas != numInicialSemillas;
+
+        boolean cambioTurno = (nuevoTurnoInicial != turnoInicialAplicado);
+
+        if (cambioSemillas || cambioTurno) {
             numInicialSemillas = nuevasSemillas;
-            juegoBantumi.resetPartida(JuegoBantumi.Turno.turnoJ1, numInicialSemillas);
+            turnoInicialAplicado = nuevoTurnoInicial; // actualiza recordatorio
+            juegoBantumi.resetPartida(nuevoTurnoInicial, numInicialSemillas);
             partidaEnCurso = false;
             invalidateOptionsMenu();
-            Log.i(LOG_TAG, "* Semillas iniciales cambiadas a " + numInicialSemillas + ". Tablero reiniciado.");
+            Log.i(LOG_TAG, "* Preferencias cambiadas → semillas=" + numInicialSemillas
+                    + ", turno=" + turnoInicialAplicado);
         }
     }
 
@@ -218,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                             );
                             numInicialSemillas = prefSemillas;
 
-                            juegoBantumi.inicializar(JuegoBantumi.Turno.turnoJ1);
+                            juegoBantumi.inicializar(leerTurnoPreferencias());
                             partidaEnCurso = false;
 
                             invalidateOptionsMenu();

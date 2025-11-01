@@ -90,13 +90,19 @@
         <string name="deleteResultsConfirm"> Resultados eliminados con exito! 👏 </string>
         <string name="deleteResultsError"> No se ha podido eliminar los resultados </string>
 
+
+    <string name="key_opcAgregados"> opc_Agregados </string>
+    <string name="title_opcAgregados"> OPCIONES AVANZADA PARA EL JUEGO </string>
+
     <!-- Opcional 1: Modificar nº inicial de semillas -->
-    <string name="key_InitModiSemillas"> opc_CambioSemillas </string>
-    <string name="title_InitModiSemillas"> MODIFICAR Nº INICIAL DE SEMILLAS </string>
+        <string name="key_NInitSemillas">pref_NInitSemillas</string>
+        <string name="title_NInitSemillas">Número inicial de semillas</string>
+        <string name="txtNInitSemillas">Presiona para modificar las semillas 🌱</string>
 
-    <string name="key_NInitSemillas">pref_NInitSemillas</string>
-    <string name="title_NInitSemillas">Número inicial de semillas</string>
-    <string name="txtNInitSemillas">Presiona para modificar las semillas 🌱</string>
-
+    <!-- Opcional 2: Escoger al Jugador inicial -->
+        <string name="key_StarterPlayer">pref_StarterPlayer</string>
+        <string name="title_InitialPlayer"> Jugador inicial </string>
+        <string name="txtStarterPlayer">Presiona para cambiar quién iniciará la partida! 🏁</string>
+        <string name="default_StarterPlayer">J1</string>
 
 </resources>
