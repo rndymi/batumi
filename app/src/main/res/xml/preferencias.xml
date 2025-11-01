@@ -11,7 +11,8 @@
             android:title="@string/title_NombreFichero"
             android:defaultValue="@string/default_NombreFichero"
             android:singleLine="true"
-            app:useSimpleSummaryProvider="true"/>
+            app:useSimpleSummaryProvider="true"
+            android:icon="@android:drawable/ic_menu_edit"/>
 
         <SwitchPreference
             android:key="@string/key_TarjetaSD"
